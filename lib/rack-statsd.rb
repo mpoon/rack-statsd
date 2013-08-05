@@ -333,9 +333,6 @@ module RackStatsD
       env['process.request_start'] = @start.to_f
       env['process.total_requests'] = total_requests
 
-      # newrelic X-Request-Start
-      env.delete('HTTP_X_REQUEST_START')
-
       status, headers, body = @app.call(env)
       body = Body.new(body) { record_request(status, env) }
       [status, headers, body]
